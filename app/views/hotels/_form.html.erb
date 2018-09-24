@@ -1,7 +1,7 @@
 <%= simple_form_for [@trip, @place, @hotel] do |h| %>
   <%= h.input :name %>
-  <%= h.input :start_time, as: :date %>
-  <%= h.input :end_time, as: :date %>
+  <%= h.input :start_date, as: :date %>
+  <%= h.input :end_date, as: :date %>
   <%= h.input :cost, as: :float %>
   <%= h.button :submit, class: 'btn btn-success btn-block' %>
 <% end %>

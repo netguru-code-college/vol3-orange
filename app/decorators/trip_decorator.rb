@@ -1,8 +1,3 @@
-class TripDecorator < Draper::Decorator
+class TripDecorator < ApplicationDecorator
   delegate_all
-
-  def trip_status(val)
-    "#{val.capitalize} Trips"
-  end
-
 end

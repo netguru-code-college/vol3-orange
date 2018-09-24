@@ -48,8 +48,8 @@ Place.all.each do |place|
   6.times do |i|
     place.hotels.create!(
       name: Faker::Witcher.monster,
-      start_time: place.start_date + i.days + 4.days,
-      end_time: place.end_date - i.days - 4.days
+      start_date: place.start_date + i.days + 4.days,
+      end_date: place.end_date - i.days - 4.days
     )
     place.attractions.create!(
       name: Faker::Restaurant.name,
@@ -58,8 +58,8 @@ Place.all.each do |place|
     )
     place.transports.create!(
       type_of_transport: Faker::Dessert.variety,
-      start_time: place.start_date + i.days + 3.days,
-      end_time: place.end_date - i.days - 3.days,
+      start_date: place.start_date + i.days + 3.days,
+      end_date: place.end_date - i.days - 3.days,
       start_location: Faker::WorldCup.city
     )
     print "."

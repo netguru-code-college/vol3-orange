@@ -1,5 +1,5 @@
-<% if @trips.current %>
-  <% @trips.current.each do |trip| %>
+<% if current_trips %>
+  <% current_trips.each do |trip| %>
     <div class="row my-4">
       <div class="col-lg-8 ">
         <% if trip.image.present? %>
@@ -11,10 +11,10 @@
       <div class="col-lg-4">
         <h1><%= trip.name %></h1>
         <p>
-          From: <%= trip.start_date.strftime("%d/%m/%Y") %>
+          From: <%= trip.formatted_start_date %>
         </p>
         <p>
-          Until: <%= trip.end_date.strftime("%d/%m/%Y") %>
+          Until: <%= trip.formatted_end_date %>
         </p>
         <%= link_to 'Show trip', trip_path(trip), class: "btn btn-primary btn-lg" %>
       </div>

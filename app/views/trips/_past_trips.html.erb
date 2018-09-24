@@ -1,4 +1,4 @@
-<% if @trips.past.present? %>
+<% if past_trips %>
   <div class="card text-white bg-secondary my-4 text-center">
     <div class="card-body">
       <p class="text-white m-0">Past Trips</p>
@@ -6,16 +6,16 @@
   </div>
 
   <div class="row">
-    <% @trips.past.each do |trip| %>
+    <% past_trips.each do |trip| %>
       <div class="col-md-4 mb-4">
         <div class="card h-100">
           <div class="card-body">
             <h2 class="card-title"><%= trip.name %></h2>
             <p class="card-text">
-              From: <%= trip.start_date.strftime("%d/%m/%Y") %>
+              From: <%= trip.formatted_start_date %>
             </p>
             <p class="card-text">
-              Until: <%= trip.end_date.strftime("%d/%m/%Y") %>
+              Until: <%= trip.formatted_end_date %>
             </p>
           </div>
           <div class="card-footer">

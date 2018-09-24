@@ -1,10 +1,16 @@
 <header>
   <div class="row jumbotron">
     <div class="col-md-8">
+      <% if @trip.image %>
+        <%= image_tag(@trip.image_url.to_s, alt: 'travel-the-world', class: "img-fluid rounded") %>
+      <% else %>
+        <%= image_tag('https://s3.amazonaws.com/travel-hero/uploads/stock-trip-2.jpeg', alt: 'travel-the-world', class: "img-fluid rounded") %>
+      <% end %>
       <h1 class="display-3"><%= @trip.name %></h1>
       <p class="lead">
-        <%= (@trip.start_date).strftime("Start date: %d/%m/%Y") %> </br>
-        <%= (@trip.end_date).strftime("End date: %d/%m/%Y") %>
+        <%= trip.formatted_start_date %> </br>
+        <%= trip.formatted_end_date %> </br>
+        Total cost: <%=  @trip.cost %> $
       </p>
       <%= link_to 'Edit', edit_trip_path(@trip), class: "btn btn-primary btn-lg" %>
       <%= link_to 'Delete', @trip, method: :delete, class: "btn btn-danger btn-lg" %>
@@ -36,7 +42,7 @@
       </div>
     <% end %>
   </div>
-  <% @trip.places.order("start_date asc").each do |place| %>
+  <% places.each do |place| %>
     <div class="col-md-4">
       <div class="card mb-4" >
         <%= link_to trip_place_path(@trip, place) do %>
@@ -44,8 +50,8 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item text-center">
                 <h3 class="card-title"><%= place.name %></h3>
-                <span class="text"><%= (place.start_date).strftime("%d/%m/%Y") %> ---
-                <%= (place.end_date).strftime("%d/%m/%Y") %></span>
+                <span class="text"><%= place.formatted_start_date %> ---
+                <%= place.formatted_end_date %></span>
                 </li>
             </ul>
           </div>

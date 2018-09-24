@@ -1,5 +1,4 @@
 class HotelsController < ApplicationController
-
   before_action :set_trip, :set_place
   before_action :set_hotel, only: [:show, :edit, :update, :destroy]
 
@@ -36,8 +35,8 @@ class HotelsController < ApplicationController
       :name,
       :address,
       :cost,
-      :start_time,
-      :end_time
+      :start_date,
+      :end_date
     )
   end
 

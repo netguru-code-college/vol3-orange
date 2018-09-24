@@ -1,28 +1,19 @@
 class Hotel < ApplicationRecord
   belongs_to :place
 
-  validates :name, :start_time, presence: true
-  validates :end_time, presence: true, date: { after_or_equal_to: :start_time }
-  validate :start_time_within_place_dates, :end_time_within_place_dates
+  validates :name, :start_date, presence: true
+  validates :end_date, presence: true, date: { after_or_equal_to: :start_date }
+  validate :dates_within_place_dates
 
-  before_save :set_time_to_midnight
-
-  def start_time_within_place_dates
-    if place.start_date > start_time
-      errors.add(:start_time, "can't be earlier than #{place.start_date}")
-    end
-  end
-
-  def end_time_within_place_dates
-    if place.end_date < end_time
-      errors.add(:end_time, "can't be later than #{place.end_date}")
-    end
-  end
+  before_save :set_date_to_midnight
 
   private
 
-  def set_time_to_midnight
-    self.start_time = self.start_time.midnight
-    self.end_time = self.end_time.midnight
+  def dates_within_place_dates
+    ::DatesRangeValidatorService.new(object: self, kind: :place).call
+  end
+
+  def set_date_to_midnight
+    ::SetDateService.new(self).call
   end
 end

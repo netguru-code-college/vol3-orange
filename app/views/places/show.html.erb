@@ -10,12 +10,13 @@
     </h1>
     <p>
       From:
-      <%= (@place.start_date).strftime("%d/%m/%Y") %>
+      <%= place.formatted_start_date %>
     </p>
     <p>
       Until:
-      <%= (@place.end_date).strftime("%d/%m/%Y") %>
+      <%= place.formatted_end_date %>
     </p>
+    <p> Cost: <%= @place.cost %> $ </p>
     <%= link_to 'Edit', edit_trip_place_path(@trip, @place), class: 'btn btn-primary' %>
     <%= link_to 'Delete', trip_place_path(@trip, @place), method: :delete,
                                 data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
@@ -23,7 +24,7 @@
   </div>
 </div>
 
-<% if @place.transports.present? %>
+<% if transports %>
 <div class="card text-white bg-secondary my-4 text-center">
   <div class="card-body">
     <p class="text-white m-0">Transport Information</p>
@@ -39,7 +40,7 @@
       <% end %>
     </div>
   </div>
-  <% @place.transports.each do |transport| %>
+  <% transports.each do |transport| %>
   <div class="col-md-4 mb-4">
     <div class="card h-100">
       <div class="card-body text-center">
@@ -48,11 +49,11 @@
         </h2>
         <p class="card-text">
           From:
-          <%= (transport.start_time).strftime("%d/%m/%Y") %>
+          <%= transport.formatted_start_date %>
         </p>
         <p class="card-text">
           Until:
-          <%= (transport.end_time).strftime("%d/%m/%Y") %>
+          <%= transport.formatted_end_date %>
         </p>
         <p>
           <%= "Cost: " + transport.cost.to_s if transport.cost %>
@@ -81,7 +82,7 @@
 </div>
 <% end %>
 
-<% if @place.attractions.present? %>
+<% if attractions %>
 <div class="card text-white bg-secondary my-4 text-center">
   <div class="card-body">
     <p class="text-white m-0">Attraction Information</p>
@@ -97,7 +98,7 @@
       <% end %>
     </div>
   </div>
-  <% @place.attractions.each do |attraction| %>
+  <% attractions.each do |attraction| %>
   <div class="col-md-4 mb-4">
     <div class="card h-100">
       <div class="card-body text-center">
@@ -106,11 +107,11 @@
         </h2>
         <p class="card-text">
           From:
-          <%= (attraction.start_date).strftime("%d/%m/%Y") %>
+          <%= attraction.formatted_start_date %>
         </p>
         <p class="card-text">
           Until:
-          <%= (attraction.end_date).strftime("%d/%m/%Y") %>
+          <%= attraction.formatted_end_date %>
         </p>
         <p>
           <%= "Cost: " + attraction.cost.to_s if attraction.cost %>
@@ -139,7 +140,7 @@
 </div>
 <% end %>
 
-<% if @place.hotels.present? %>
+<% if hotels %>
 <div class="card text-white bg-secondary my-4 text-center">
   <div class="card-body">
     <p class="text-white m-0">Hotel Information</p>
@@ -155,7 +156,7 @@
       <% end %>
     </div>
   </div>
-  <% @place.hotels.each do |hotel| %>
+  <% hotels.each do |hotel| %>
   <div class="col-md-4 mb-4">
     <div class="card h-100">
       <div class="card-body text-center">
@@ -164,11 +165,11 @@
         </h2>
         <p class="card-text">
           From:
-          <%= (hotel.start_time).strftime("%d/%m/%Y") %>
+          <%= hotel.formatted_start_date %>
         </p>
         <p class="card-text">
           Until:
-          <%= (hotel.end_time).strftime("%d/%m/%Y") %>
+          <%= hotel.formatted_end_date %>
         </p>
         <p>
           <%= "Cost: " + hotel.cost.to_s if hotel.cost %>

@@ -1,9 +1,17 @@
 class TripsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
+  decorates_assigned :trip, :trips, :current_trips, :upcoming_trips, :past_trips, :places
 
   def index
-    @trips = current_user ? current_user.trips : nil
+     if current_user
+        @trips = current_user.trips
+        @current_trips = @trips.current
+        @upcoming_trips = @trips.upcoming
+        @past_trips = @trips.past
+    else
+      @trips = nil
+    end
   end
 
   def new
@@ -22,7 +30,9 @@ class TripsController < ApplicationController
     end
   end
 
-  def edit ; end
+  def show
+    @places = @trip.places.order("start_date asc")
+  end
 
   def update
     if @trip.update(trip_params)

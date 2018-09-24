@@ -19,10 +19,13 @@ class Trip < ApplicationRecord
 
   before_save :set_date_to_midnight
 
+  def cost
+    TripCostService.new(self).call
+  end
+
   private
 
   def set_date_to_midnight
-    self.start_date = self.start_date.midnight
-    self.end_date = self.end_date.midnight
+    SetDateService.new(self).call
   end
 end

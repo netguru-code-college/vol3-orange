@@ -1,6 +1,7 @@
 class PlacesController < ApplicationController
   before_action :set_trip
   before_action :set_place, only: [:show, :edit, :update, :destroy]
+  decorates_assigned :place, :transports, :attractions, :hotels
 
   def new
     @place = @trip.places.build
@@ -16,6 +17,12 @@ class PlacesController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @transports = @place.transports
+    @hotels = @place.hotels
+    @attractions = @place.attractions
   end
 
   def update
